@@ -6,7 +6,7 @@ require 'redlock'
 module Redrate
   class Ring
     def initialize(size, key, default)
-      @redis = Redis.current
+      @redis = Redrate.config.redis
       @redlock = Redlock::Client.new([@redis])
       @size = size
       @key = key

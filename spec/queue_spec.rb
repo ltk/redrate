@@ -20,4 +20,11 @@ RSpec.describe Redrate::Queue do
     end
     expect(elapsed_time { threads.each(&:join) }).to be_within(tolerance).of(expected)
   end
+
+  it 'uses the configured Redis client instace' do
+    redis_client = Redis.current
+    expect(Redrate).to receive(:config).and_return(double(redis: redis_client))
+
+    queue.shift
+  end
 end
